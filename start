@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+  echo "指定された引数は$#個です。" 1>&2
+  echo "実行するには1個の引数が必要です。" 1>&2
+  exit 1
+fi
+
+declare -i number
+declare slave
+declare secret
+menu="encode_slave1 encode_slave2 encode_slave3 encode_slave4 encode_slave5 encode_slave6 encode_slave7"
+select type in ${menu}
+
+do
+    number=$REPLY
+    slave=$type
+    if [ $number -le 7 ]; then
+        break
+    fi
+done
+
+if [ $number -eq 1 ]; then
+    secret="f2d8ef2b55191f01171995c403632683c2feb2829361f908305b9f3ae7bcb033"
+elif [ $number -eq 2 ]; then
+    secret="ecf3ff40a66d66cd3f4fef040803259a0ce40bf50713f2634788be26ad54bd71"
+elif [ $number -eq 3 ]; then
+    secret="050850588f6f3a8a79ef20eb95764b443f78b89d13954499e50953c3b399e308"
+elif [ $number -eq 4 ]; then
+    secret="df33bb694929f473f76cf0bcaefea4117b7d0286c58469355a970483d030530d"
+elif [ $number -eq 5 ]; then
+    secret="d4fa565f5094650981d6bb815a9e654e8e034b15a3241dca8bbe0d94a57dbc28"
+elif [ $number -eq 6 ]; then
+    secret="29efb974700794e4384dd2a27781dbbb196f93f525cc0908e68f01470b24fce9"
+elif [ $number -eq 7 ]; then
+    secret="46d2230e1d1e3708ce067c7138e477d97c398c43fc8710434c0bfd858b251813"
+fi
+
+echo "select agent = [$slave] secret id = [$secret]"
+echo "connect to agent [$slave]"
+agentcmd="java -jar slave.jar -jnlpUrl $1/$slave/slave-agent.jnlp -secret $secret -noCertificateCheck"
+
+echo "command $agentcmd"
+eval $agentcmd
+

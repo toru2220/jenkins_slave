@@ -1,0 +1,19 @@
+#!/bin/bash
+
+sudo chmod +x HandBrakeCLI
+sudo chmod +x install
+sudo chmod +x start
+cp HandBrakeCLI /usr/local/bin/.
+sudo -p /mnt/jenkins
+sudo chmod -R 777 /mnt/jenkins
+sudo apt-get update && sudo apt-get -y install openjdk-7-jre sshpass git subversion yasm build-essential autoconf libtool zlib1g-dev libbz2-dev libxml2-dev libogg-dev libtheora-dev libvorbis-dev libsamplerate-dev libfribidi-dev libfreetype6-dev libfontconfig1-dev libass-dev libjansson-dev libmp3lame-dev libx264-dev zip unzip tar gzip
+cd /usr/src
+sudo apt-get -y build-dep libx264-142 && sudo apt-get -y source libx264-142
+cd x264-0.142.2389+git956c8d8
+sudo ./configure --enable-static --enable-shared --extra-cflags=-fno-aggressive-loop-optimizations && sudo make -j8
+sudo cp libx264.so.142 /usr/lib/x86_64-linux-gnu/
+sudo add-apt-repository ppa:mc3man/trusty-media && sudo apt-get update && sudo apt-get -y install ffmpeg
+cd /home/ubuntu/workspace
+sudo git clone https://github.com/toru2220/jenkins_slave.git slave
+sudo mv slave/slave.jar .
+./start
