@@ -38,7 +38,7 @@ fi
 
 echo "select agent = [$slave] secret id = [$secret]"
 echo "connect to agent [$slave]"
-agentcmd="java -jar slave.jar -jnlpUrl $1/$slave/slave-agent.jnlp -secret $secret -noCertificateCheck"
+agentcmd="java -jar slave.jar -jnlpUrl $1/computer/$slave/slave-agent.jnlp -secret $secret -noCertificateCheck"
 
 echo "command $agentcmd"
 eval $agentcmd
