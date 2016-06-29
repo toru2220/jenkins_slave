@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo cp *.list /etc/apt/sources.list.d
+sudo cp libx264.so.142 /usr/lib/x86_64-linux-gnu/
 sudo chmod +x HandBrakeCLI
 sudo chmod +x start
 sudo cp HandBrakeCLI /usr/local/bin/.
@@ -9,7 +10,6 @@ sudo chmod -R 777 /mnt/jenkins
 sudo apt-get update && sudo apt-get -y install openjdk-7-jre sshpass git subversion yasm build-essential autoconf libtool zlib1g-dev libbz2-dev libxml2-dev libogg-dev libtheora-dev libvorbis-dev libsamplerate-dev libfribidi-dev libfreetype6-dev libfontconfig1-dev libass-dev libjansson-dev libmp3lame-dev libx264-dev zip unzip tar gzip
 cd /usr/src
 sudo apt-get -y build-dep libx264-142 && sudo apt-get -y source libx264-142
-sudo cp libx264.so.142 /usr/lib/x86_64-linux-gnu/
 sudo add-apt-repository -y ppa:mc3man/trusty-media && sudo apt-get update && sudo apt-get -y install ffmpeg
 cd /home/ubuntu/workspace
 
